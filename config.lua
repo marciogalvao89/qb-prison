@@ -2,6 +2,24 @@ Config = {}
 
 Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
 
+local isServer = IsDuplicityVersion()
+if not isServer then
+    --- This function will be triggered once the hack is done
+    --- @param success boolean
+    --- @param currentGate number
+    --- @param gateData table
+    --- @return nil
+    function Config.OnHackDone(success, currentGate, gateData)
+        if success then
+            TriggerServerEvent("prison:server:SetGateHit", currentGate)
+            TriggerServerEvent('qb-doorlock:server:updateState', gateData.gatekey, false, false, false, true)
+        else
+            TriggerServerEvent("prison:server:SecurityLockdown")
+        end
+        TriggerEvent('mhacking:hide')
+    end
+end
+
 Config.Jobs = {
     ["electrician"] = "Electrician"
 }
@@ -33,19 +51,19 @@ Config.Locations = {
         }
     },
     ["freedom"] = {
-        coords = vector4(1836.37, 2585.33, 45.89, 272.96)
+        coords = vector4(1740.88, 2476.57, 44.85, 299.49)
     },
     ["outside"] = {
-        coords = vector4(1848.13, 2586.05, 45.67, 269.5)
+        coords = vector4(1848.13, 2586.05, 44.67, 269.5)
     },
     ["yard"] = {
-        coords = vector4(1765.67, 2565.91, 45.56, 1.5)
+        coords = vector4(1765.67, 2565.91, 44.56, 1.5)
     },
     ["middle"] = {
-        coords = vector4(1693.33, 2569.51, 45.55, 123.5)
+        coords = vector4(1693.33, 2569.51, 44.55, 123.5)
     },
     ["shop"] = {
-        coords = vector4(1786.19, 2557.77, 45.62, 0.5)
+        coords = vector4(1777.59, 2560.52, 44.62, 187.83)
     },
     spawns = {
         [1] = {
