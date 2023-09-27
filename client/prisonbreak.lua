@@ -42,11 +42,11 @@ local function DrawText3D(x, y, z, text)
     SetTextFont(4)
     SetTextProportional(1)
     SetTextColour(255, 255, 255, 215)
-    SetTextEntry("STRING")
+    BeginTextCommandDisplayText("STRING")
     SetTextCentre(true)
-    AddTextComponentString(text)
+    AddTextComponentSubstringPlayerName(text)
     SetDrawOrigin(x,y,z, 0)
-    DrawText(0.0, 0.0)
+    EndTextCommandDisplayText(0.0, 0.0)
     local factor = (string.len(text)) / 370
     DrawRect(0.0, 0.0+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 75)
     ClearDrawOrigin()
@@ -55,7 +55,7 @@ end
 -- Events
 
 AddEventHandler('onResourceStart', function(resource)
-    if resource ~= GetCurrentResourceName() or not LocalPlayer.state['isLoggedIn'] then return end
+    if resource ~= GetCurrentResourceName() then return end
     PlayerJob = QBCore.Functions.GetPlayerData().job
 end)
 
@@ -172,32 +172,30 @@ CreateThread(function()
         inRange = false
         currentGate = 0
         local sleep = 1000
-        if LocalPlayer.state.isLoggedIn then
-            if PlayerJob.name ~= "police" then
-                local pos = GetEntityCoords(PlayerPedId())
-                for k in pairs(Gates) do
-                    local dist =  #(pos - Gates[k].coords)
-                    if dist < 1.5 then
-                        currentGate = k
-                        inRange = true
-                        if securityLockdown then
-                            sleep = 0
-                            DrawText3D(Gates[k].coords.x, Gates[k].coords.y, Gates[k].coords.z, "~r~SYSTEM LOCKDOWN")
-                        elseif Gates[k].hit then
-                            sleep = 0
-                            DrawText3D(Gates[k].coords.x, Gates[k].coords.y, Gates[k].coords.z, "SYSTEM BREACH")
-                        elseif not requiredItemsShowed then
-                            requiredItemsShowed = true
-                            TriggerEvent('inventory:client:requiredItems', requiredItems, true)
-                        end
+        if PlayerJob.name ~= "police" then
+            local pos = GetEntityCoords(PlayerPedId())
+            for k in pairs(Gates) do
+                local dist =  #(pos - Gates[k].coords)
+                if dist < 1.5 then
+                    currentGate = k
+                    inRange = true
+                    if securityLockdown then
+                        sleep = 0
+                        DrawText3D(Gates[k].coords.x, Gates[k].coords.y, Gates[k].coords.z, "~r~SYSTEM LOCKDOWN")
+                    elseif Gates[k].hit then
+                        sleep = 0
+                        DrawText3D(Gates[k].coords.x, Gates[k].coords.y, Gates[k].coords.z, "SYSTEM BREACH")
+                    elseif not requiredItemsShowed then
+                        requiredItemsShowed = true
+                        TriggerEvent('inventory:client:requiredItems', requiredItems, true)
                     end
                 end
+            end
 
-                if not inRange then
-                    if requiredItemsShowed then
-                        requiredItemsShowed = false
-                        TriggerEvent('inventory:client:requiredItems', requiredItems, false)
-                    end
+            if not inRange then
+                if requiredItemsShowed then
+                    requiredItemsShowed = false
+                    TriggerEvent('inventory:client:requiredItems', requiredItems, false)
                 end
             end
         end
