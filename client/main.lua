@@ -387,7 +387,7 @@ CreateThread(function()
 						Wait(0)
 					end
 				end)
-				exports['qb-core']:DrawText('[E] Check Time', 'left')
+				exports['qb-core']:DrawText('[E] Verificar Tempo', 'left')
 			else
 				exports['qb-core']:HideText()
 			end
@@ -410,7 +410,7 @@ CreateThread(function()
 						Wait(0)
 					end
 				end)
-				exports['qb-core']:DrawText('[E] Open Canteen', 'left')
+				exports['qb-core']:DrawText('[E] Abrir Cantina', 'left')
 			else
 				exports['qb-core']:HideText()
 			end

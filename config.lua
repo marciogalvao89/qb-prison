@@ -1,6 +1,6 @@
 Config = {}
 
-Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
+Config.UseTarget = GetConvar('UseTarget', 'false') == 'false' -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
 
 local isServer = IsDuplicityVersion()
 if not isServer then
@@ -72,7 +72,7 @@ Config.Locations = {
         }
     },
     ["freedom"] = {
-        coords = vector4(1740.88, 2476.57, 44.85, 299.49)
+        coords = vector4(1767.69, 2557.18, 44.56, 82.18)
     },
     ["outside"] = {
         coords = vector4(1848.13, 2586.05, 44.67, 269.5)
@@ -81,10 +81,10 @@ Config.Locations = {
         coords = vector4(1765.67, 2565.91, 44.56, 1.5)
     },
     ["middle"] = {
-        coords = vector4(1693.33, 2569.51, 44.55, 123.5)
+        coords = vector4(1680.09, 2512.67, 45.56, 142.53)
     },
     ["shop"] = {
-        coords = vector4(1777.59, 2560.52, 44.62, 187.83)
+        coords = vector4(1777.03, 2598.16, 44.8, 177.12)
     },
     spawns = {
         [1] = {

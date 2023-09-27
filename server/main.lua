@@ -23,7 +23,7 @@ RegisterNetEvent('prison:server:SaveJailItems', function()
     if not Player then return end
     if not Player.PlayerData.metadata["jailitems"] or table.type(Player.PlayerData.metadata["jailitems"]) == "empty" then
         Player.Functions.SetMetaData("jailitems", Player.PlayerData.items)
-        Player.Functions.AddMoney('cash', 80)
+        Player.Functions.AddMoney('cash', 80, "Prisao")
         Wait(2000)
         Player.Functions.ClearInventory()
     end
